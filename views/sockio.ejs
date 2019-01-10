@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+
+
+    <input type="text"/>
+    <button >add</button>
+
+
+    <script type="text/javascript">
+    	
+    	var name = prompt("你是谁");
+
+    	console.log(name);
+
+    	var op = document.querySelector("h1");
+    	op.innerHTML = name;
+
+    	var obutton = document.querySelector("button");
+
+    	var oinput =document.querySelector("input");
+    	obutton.onclick = function(){
+    		// console.log(oinput.value);
+
+    		io.emit("kerwinserver",{
+                name:name,
+                text:oinput.value
+            })
+    	}
+
+
+        // new Websocket()
+    
+
+        var io = io();// 等价与 连接webscket服务器
+
+        io.on("kerwin",(msg)=>{
+            console.log(msg);
+        })
+    </script>
+  </body>
+</html>

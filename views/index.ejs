@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+
+
+    <input type="text"/>
+    <button >add</button>
+
+
+    <script type="text/javascript">
+    	
+    	var name = prompt("你是谁");
+
+    	console.log(name);
+
+    	var op = document.querySelector("h1");
+    	op.innerHTML = name;
+
+    	var obutton = document.querySelector("button");
+
+    	var oinput =document.querySelector("input");
+    	obutton.onclick = function(){
+    		// console.log(oinput.value);
+
+    		ws.send(JSON.stringify({
+    			name:name,
+    			text:oinput.value,
+    			to:"aaaaaa"
+    		}))//发送消息给服务端 只能传字符串
+    	}
+
+
+
+    	var ws = new WebSocket("ws://10.2.153.27:8080")
+
+    	ws.onopen = function(){
+    			//连接成功调用
+    		console.log("连接成功调用")
+    	} 
+
+		ws.onmessage = function(msg){
+			// 服务器给客户端发消息
+			console.log(msg.data);
+
+            
+		}
+
+		ws.onerror =function(){
+			// 连接失败调用
+		}
+
+		ws.onclose = function(){
+			// 服务器断掉
+		}
+    </script>
+  </body>
+</html>
